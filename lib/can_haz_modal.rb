@@ -1,4 +1,4 @@
-module AutoNoLayout
+module CanHazModal
   def self.included(base)
     base.before_filter :adjust_format_for_partial
     base.layout :no_layout_for_xhr

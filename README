@@ -1,4 +1,4 @@
-AutoNoLayout
+Can Haz Modal
 ============
 
 Requests with the format of :partial will now render with no layout
