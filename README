@@ -27,6 +27,7 @@ This plugin has not been ported to rails 3 yet. I promise I'll get to it soon.
 In the mean time, it's really easy to just copy over the bits you need:
 
 Add the mime type to your initializers (config/initializers/mime_types.rb):
+
   Mime::Type.register_alias 'text/html', :partial
 
 
