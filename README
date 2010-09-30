@@ -1,5 +1,5 @@
 Can Haz Modal
-============
+=============
 
 Requests with the format of :partial will now render with no layout
 The format will be adjusted back to :html so that your html views will be rendered even when the :partial format is specified
@@ -17,6 +17,43 @@ Two things you will need to do to take advantage of this plugin:
       $('[href$=.partial]').boxy();
 
   3. Profit
+
+
+Rails 3
+=======
+
+This plugin has not been ported to rails 3 yet. I promise I'll get to it soon.
+
+In the mean time, it's really easy to just copy over the bits you need:
+
+Add the mime type to your initializers (config/initializers/mime_types.rb):
+  Mime::Type.register_alias 'text/html', :partial
+
+
+Put this in your ApplicationController:
+
+  before_filter :adjust_format_for_partial
+  layout :no_layout_for_xhr
+  helper_method :is_partial?
+
+  private
+  def no_layout_for_xhr
+    is_partial? ? nil : 'application'
+  end
+
+  def adjust_format_for_partial
+    if request.format == :partial then
+      @__partial = !!request.xhr?
+      request.format = :html # reset format to html so that people don't have to rename their view files
+    else
+      @__partial = false
+    end
+  end
+
+  def is_partial?
+    @__partial
+  end
+
 
 
 Copyright (c) 2010 Amiel Martin, Carnes Media, released under the MIT license
